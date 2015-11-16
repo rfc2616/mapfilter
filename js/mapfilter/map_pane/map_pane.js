@@ -63,7 +63,7 @@ module.exports = require('backbone').View.extend({
 
     L.control.layers({
       'Bing Satellite': this.bingLayer,
-      'Bush & Mountains': this.wapichanaLayer
+      'Monitoring Map': this.wapichanaLayer
     }).addTo(this.map)
 
     // Object to hold a reference to any markers added to the map

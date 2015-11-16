@@ -18,7 +18,7 @@ module.exports = function (options) {
     filters: options.filters,
 
     // Initial map center point (TODO: set this & zoom based on data bounds)
-    mapCenter: [51.64792, -1.45042],
+    mapCenter: [3.8831370, 11.5179767],
 
     // Initial map zoom
     mapZoom: 17,
