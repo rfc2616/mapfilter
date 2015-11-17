@@ -108,8 +108,9 @@ module.exports = require('backbone').Model.extend({
   },
 
   getImgCaption: function () {
-    var photos = this.get('photos')
+    var photos = this.attributes.properties['photos']
     if(photos){
+      // legacy Wapichan-style nested photos with caption
       console.log("Caption: "+photos['caption'])
       return photos['caption']
     } else {
