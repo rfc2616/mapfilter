@@ -40,4 +40,5 @@
   <th><%= t("ui.info_panel.prompt.visit_date") %>:</th>
   <td><%= getWhen() %></td>
 </tr>
+<%= getFormattedAttributes() %>
 </table>

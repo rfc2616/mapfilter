@@ -94,12 +94,10 @@ module.exports = require('backbone').Model.extend({
   getImgUrl: function () {
     var photos = this.get('photos')
     if(photos && !(photos=='not_recorded')){
-      console.log("Photo: "+photos['picture']);
       return photos['picture'];
     } else {
       var picture = this.get('picture');
       if(picture && !(picture=='not_recorded')){
-        console.log("Picture: "+picture);
         return picture;
       } else {
         return undefined;
@@ -111,13 +109,39 @@ module.exports = require('backbone').Model.extend({
     var photos = this.attributes.properties['photos']
     if(photos){
       // legacy Wapichan-style nested photos with caption
-      console.log("Caption: "+photos['caption'])
       return photos['caption']
     } else {
       if(this.attributes.properties['caption']) {
         return this.get('caption');
       }
     }
+  },
+
+  getFormattedAttributes: function() {
+    var out = ""
+    var props = this.attributes.properties
+    for (var key in props) {
+      if (props.hasOwnProperty(key)) {
+        if(!(
+          key == 'people' ||
+          key == 'placename' ||
+          key == 'location' ||
+          key == 'picture' ||
+          key == 'caption' ||
+          key == 'happening' ||
+          key == 'happening_other' ||
+          key == 'impacts' ||
+          key == 'impacts_other' ||
+          key == 'today' ||
+          key == 'start' ||
+          key == 'end' ||
+          key == 'meta'
+        )){
+          out = out + "<tr><th>"+this._toSentenceCase(key)+":</th><td>"+props[key]+"</td></tr>"
+        }
+      }
+    }
+    return out
   },
 
   // Takes a field that is a space-separated list of values, which may include "other"
@@ -141,6 +165,7 @@ module.exports = require('backbone').Model.extend({
   // Converts a string to sentence case
   _toSentenceCase: function (s) {
     s = s || ''
+    s = s.replace(/_/g,' ');
     // Matches the first letter in the string and the first letter that follows a
     // period (and 1 or more spaces) and transforms that letter to uppercase.
     return s.replace(/(^[a-z])|(\.\s*[a-z])/g, function (s) { return s.toUpperCase() })
