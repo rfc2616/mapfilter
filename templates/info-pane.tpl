@@ -8,14 +8,16 @@
 <div class="image-wrapper">
   <% if (getImgUrl()) { %>
     <img src="/monitoring-files/<%= getImgUrl() %>">
-    <div class="caption"><strong>Caption:</strong> <%= getImgCaption() %></div>
+    <div class="caption"><%= getImgCaption() %></div>
   <% } %>
 </div>
 <table class="table">
+<% if (hasLocation()) { %>
 <tr>
   <th>Where:</th>
   <td><%= t(getLocation()) %></td>
 </tr>
+<% } %>
 <tr>
   <th>Coordinates:</th>
   <td><%= getFormatedCoords() %></td>

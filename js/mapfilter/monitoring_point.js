@@ -48,7 +48,16 @@ module.exports = require('backbone').Model.extend({
     return this._getOther('impacts', 'impacts_other')
   },
 
-  // Creates a formatted, readable string for the location
+  // legacy: for Wapichan style title-or-extension location
+  hasLocation: function () {
+    if(this.attributes.properties['myarea']){
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  // legacy: for Wapichan style title-or-extension location
   getLocation: function () {
     var location = this.get('myarea')
     var titleOrExtension = ''
@@ -104,7 +113,9 @@ module.exports = require('backbone').Model.extend({
       console.log("Caption: "+photos['caption'])
       return photos['caption']
     } else {
-      return "";
+      if(this.attributes.properties['caption']) {
+        return this.get('caption');
+      }
     }
   },
 
