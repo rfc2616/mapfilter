@@ -2,9 +2,8 @@
 
 // globally self-installing deps
 require('./lib/locale.js')
-require('./lib/leaflet-0.7.1.js')
+require('./lib/leaflet-0.7.7.js')
 require('./lib/bing_layer.js')
-require('./lib/leaflet_providers.js')
 require('./lib/d3.v4.js')
 require('./lib/d3-dates.v4.js')
 
@@ -17,16 +16,12 @@ window.locale.es = require('../data/es')
 window.locale.init();
 
 var mapFilter = require('./mapfilter/mapfilter.js')
-var config = require('../config.json')
 
 var hostname = window.location.hostname
 
-config = config[hostname] || config['lab.digital-democracy.org']
-console.log(config);
-
 window.app = mapFilter({
-  // target for github database
-  url: config.dataUrl,
+  // target for monitoring data
+  url: '/json/Monitoring.json',
 
   // app container
   el: $('#app'),
@@ -48,17 +43,6 @@ window.app = mapFilter({
     field: 'people',
     expanded: true
   }],
-
-  githubToken: (function () {
-    if (!config.auth) return
-    var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
-    if (token) return token
-    token = window.prompt(t("error.missing_github_token"))
-    var cookie = 'githubToken=' + token + ';max-age=2592000'
-    if (window.location.protocol === 'https:') cookie += ';secure'
-    document.cookie = cookie
-    return token
-  })(),
 
   // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
   tileUrl: '/monitoring-files/Maps/Tiles/{z}/{x}/{y}.png',
