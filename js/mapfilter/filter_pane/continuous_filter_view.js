@@ -40,9 +40,18 @@ module.exports = require('backbone').View.extend({
       endDate = this.format(this.dimension.top(1)[0].getDate())
 
     this.$el.html(this.template({
+      startDate: startDate,
+      endDate: endDate,
       filterRange: startDate + ' &mdash; ' + endDate
     }))
     return this
+  },
+
+  save: function() {
+    return {
+      startDate: this.$('.filter_range').data('start'),
+      endDate: this.$('.filter_range').data('end')
+    }
   },
 
   showGraphPane: function (e) {

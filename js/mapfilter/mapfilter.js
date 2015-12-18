@@ -8,6 +8,8 @@ module.exports = function (options) {
   var appView = new AppView({
     el: options.el,
 
+    config: options.config,
+
     collection: new Collection(void 0, {
       model: MonitoringPoint,
       url: options.url,

@@ -93,6 +93,16 @@ module.exports = require('backbone').View.extend({
     return this
   },
 
+  save: function() {
+    var selected = []
+
+    this.$('input:checked').each(function() {
+      selected.push($(this).attr('value'))
+    });
+
+    return selected;
+  },
+
   // Select all items in this filter
   selectAll: function () {
     this.$('input').prop('checked', true)
