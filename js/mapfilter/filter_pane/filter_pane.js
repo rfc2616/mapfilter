@@ -27,8 +27,11 @@ module.exports = require('backbone').View.extend({
 
     // Initialize a graph pane to hold charts for continuous filters
     this.graphPane = new GraphPane({
-      collection: this.collection
+      collection: this.collection,
+      initialValue: options.config.getFilterValue('today')
     })
+
+    this.config = options.config
 
     this.models = []
 
@@ -76,13 +79,15 @@ module.exports = require('backbone').View.extend({
         collection: this.collection,
         field: options.field,
         expanded: options.expanded || false,
-        graphPane: this.graphPane
+        graphPane: this.graphPane,
+        initialValue: this.config.getFilterValue(options.field)
       })
     } else {
       filterView = new DiscreteFilterView({
         collection: this.collection,
         field: options.field,
-        expanded: options.expanded || false
+        expanded: options.expanded || false,
+        initialValue: this.config.getFilterValue(options.field)
       })
     }
 
