@@ -20,6 +20,7 @@ var mapFilter = require('./mapfilter/mapfilter.js')
 var hostname = window.location.hostname
 
 var render_app = function(config) {
+  window.config = config
   window.app = mapFilter({
     // target for monitoring data
     url: config.get('dataUrl'),

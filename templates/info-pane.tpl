@@ -7,7 +7,7 @@
 </h3>
 <div class="image-wrapper">
   <% if (getImgUrl()) { %>
-    <img src="/monitoring-files/<%= getImgUrl() %>">
+    <img src="<%= getImgUrl() %>">
     <div class="caption"><%= getImgCaption() %></div>
   <% } %>
 </div>

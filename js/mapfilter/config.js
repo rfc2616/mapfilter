@@ -6,6 +6,7 @@ module.exports = require('backbone').Model.extend({
 
   defaults: {
     canSaveFilters: false,
+    imageUrlRoot: '/monitoring-files',
     dataUrl: '/json/Monitoring.json'
   },
 
@@ -17,6 +18,11 @@ module.exports = require('backbone').Model.extend({
         value = filters[field].value;
     }
     return value;
+  },
+
+  getImageUrl: function(path) {
+    if (path)
+      return this.get('imageUrlRoot') + (path.startsWith('/') ? path : ("/" + path));
   }
 
 })
