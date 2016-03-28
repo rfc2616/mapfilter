@@ -39,7 +39,8 @@
             "select_all": "Show All",
             "select_dates": "Select Dates",
             "dates": "Dates",
-            "print_report": "Print Report"
+            "print_report": "Print Report",
+            "publish_web": "Publish to Web"
         },
         "print_view": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
@@ -63,7 +64,7 @@
         "map_pane": {
             "layers": {
                 "bing": "Bing Satellite",
-                "bush_mountains": "Bush & Mountains"
+                "bush_mountains": "Map Layer"
             }
         }
     },
