@@ -19,35 +19,52 @@ var mapFilter = require('./mapfilter/mapfilter.js')
 
 var hostname = window.location.hostname
 
-window.app = mapFilter({
-  // target for monitoring data
-  url: '/json/Monitoring.json',
+var render_app = function(config) {
+  window.config = config
+  window.app = mapFilter({
+    // target for monitoring data
+    url: config.get('dataUrl'),
 
-  // app container
-  el: $('#app'),
+    // app container
+    el: $('#app'),
 
-  // An array of filters to explore the data.
-  // `field` is the field/attribute to filter by
-  // `type` should be `discrete` for string data and `continuous` for numbers or dates
-  // `expanded` sets whether the filter view is expanded or collapsed by default
-  filters: [{
-    type: 'continuous',
-    field: 'today',
-    expanded: true
-  }, {
-    type: 'discrete',
-    field: 'happening',
-    expanded: true
-  }, {
-    type: 'discrete',
-    field: 'people',
-    expanded: true
-  }],
+    config: config,
 
-  // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
-  tileUrl: '/monitoring-files/Maps/Tiles/{z}/{x}/{y}.png',
-  // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
+    // An array of filters to explore the data.
+    // `field` is the field/attribute to filter by
+    // `type` should be `discrete` for string data and `continuous` for numbers or dates
+    // `expanded` sets whether the filter view is expanded or collapsed by default
+    // TODO: build filters based on config specifications
+    filters: [{
+      type: 'continuous',
+      field: 'today',
+      expanded: true
+    }, {
+      type: 'discrete',
+      field: 'happening',
+      expanded: true
+    }, {
+      type: 'discrete',
+      field: 'people',
+      expanded: true
+    }],
 
-  // API key for Bing Maps use
-  bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
-})
+    // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
+    tileUrl: '/monitoring-files/Maps/Tiles/{z}/{x}/{y}.png',
+    // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
+
+    // API key for Bing Maps use
+    bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
+  })
+}
+
+var Config = require('./mapfilter/config.js');
+new Config().fetch({
+  success: function(model, resp, opts) {
+    render_app(model);
+  },
+  error: function(model, resp, opts) {
+    console.log("Error loading configuration, using defaults.")
+    render_app(model);
+  }
+});

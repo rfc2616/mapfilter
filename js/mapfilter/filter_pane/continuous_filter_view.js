@@ -22,6 +22,7 @@ module.exports = require('backbone').View.extend({
   // with `options.graphPane`
   initialize: function (options) {
     this.field = options.field
+    this.initialValue = options.initialValue
     this.graphPane = options.graphPane
     this.$el.attr('id', this.field)
     this.format = window.locale.d3().timeFormat('%d %b %Y')
@@ -29,7 +30,8 @@ module.exports = require('backbone').View.extend({
     this.template = tpl
     this.dimension = this.collection.dimension(function (d) { return new Date(d.get(options.field)) })
     this.group = this.dimension.group(d3.time.day)
-    this.listenTo(this.collection, 'filtered firstfetch', this.render)
+    this.listenTo(this.collection, 'filtered', this.render)
+    this.listenTo(this.collection, 'firstfetch', this.load)
   },
 
   // Simply renders the template and sets the view element html.
@@ -40,9 +42,33 @@ module.exports = require('backbone').View.extend({
       endDate = this.format(this.dimension.top(1)[0].getDate())
 
     this.$el.html(this.template({
+      startDate: startDate,
+      endDate: endDate,
       filterRange: startDate + ' &mdash; ' + endDate
     }))
     return this
+  },
+
+  load: function() {
+    var data = this.initialValue
+    if (data != null && data != undefined && data.startDate) {
+      var startDate = data.startDate, endDate = data.endDate
+      this.$el.html(this.template({
+        startDate: startDate,
+        endDate: endDate,
+        filterRange: startDate + ' &mdash; ' + endDate
+      }))
+      this.initialValue = null
+      return this
+    } else
+      return this.render()
+  },
+
+  save: function() {
+    return {
+      startDate: this.$('.filter_range').data('start'),
+      endDate: this.$('.filter_range').data('end')
+    }
   },
 
   showGraphPane: function (e) {

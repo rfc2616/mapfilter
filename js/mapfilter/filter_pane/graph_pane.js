@@ -16,6 +16,7 @@ module.exports = require('backbone').View.extend({
     var date = this.collection.dimension(function (d) { return new Date(d.get('today')) }),
       dates = date.group(d3.time.day)
 
+    this.initialValue = options.initialValue
     this.barChart = BarChart()
       .collection(options.collection)
       .dimension(date)
@@ -30,13 +31,28 @@ module.exports = require('backbone').View.extend({
         }
       })
     this.listenTo(this.collection, 'filtered', this.render)
-    this.listenTo(this.collection, 'firstfetch change', this.updateDomain)
+    this.listenTo(this.collection, 'change', this.updateDomain)
+    this.listenTo(this.collection, 'firstfetch', this.load)
   },
 
   render: function () {
     if (!this.collection.length) return this
     d3.select(this.el).call(this.barChart)
     return this
+  },
+
+  load: function() {
+    if (this.initialValue) {
+      var data = this.initialValue
+      this.format = window.locale.d3().timeFormat('%d %b %Y')
+
+      var date = this.format.parse(data.startDate)
+      var yesterday = new Date(date.getTime() - 24 * 60 * 60 * 100)
+
+      this.updateDomain()
+      //FIXME: This should not remove checkboxes, but it does...
+      //this.barChart.filter([yesterday, this.format.parse(data.endDate)])
+    }
   },
 
   updateDomain: function () {

@@ -18,7 +18,8 @@ var DiscreteFilterView = require('./discrete_filter_view.js')
 
 module.exports = require('backbone').View.extend({
   events: {
-    'click .print-preview': 'showPrintPreview'
+    'click .print-preview': 'showPrintPreview',
+    'click .save-filters': 'saveFilters'
   },
 
   initialize: function (options) {
@@ -26,8 +27,13 @@ module.exports = require('backbone').View.extend({
 
     // Initialize a graph pane to hold charts for continuous filters
     this.graphPane = new GraphPane({
-      collection: this.collection
+      collection: this.collection,
+      initialValue: options.config.getFilterValue('today')
     })
+
+    this.config = options.config
+
+    this.models = []
 
     // Append the graph parent to this pane's parent
     this.$el.append(this.graphPane.render().el)
@@ -45,6 +51,15 @@ module.exports = require('backbone').View.extend({
       t('ui.filter_view.print_report') + 
       '</button> ' +
       '</div>')
+
+    if (options.config.get('canSaveFilters')) {
+      this.$filters.append(
+        '<div>' + 
+        '<div type"button" class="btn btn-default save-filters">' + 
+        t('ui.filter_view.save_filters') +
+        '</div>' +
+        '</div>');
+    }
   },
 
   // Add a filter on a field to the filter pane.
@@ -64,21 +79,41 @@ module.exports = require('backbone').View.extend({
         collection: this.collection,
         field: options.field,
         expanded: options.expanded || false,
-        graphPane: this.graphPane
+        graphPane: this.graphPane,
+        initialValue: this.config.getFilterValue(options.field)
       })
     } else {
       filterView = new DiscreteFilterView({
         collection: this.collection,
         field: options.field,
-        expanded: options.expanded || false
+        expanded: options.expanded || false,
+        initialValue: this.config.getFilterValue(options.field)
       })
     }
 
+    this.models.push(filterView)
     this.$filters.append(filterView.render().el)
+  },
+
+  save: function() {
+    var result = {}
+    for (var i = 0; i < this.models.length; i++) {
+      var filter = this.models[i];
+      result[filter.field] = {
+        field: filter.field,
+        value: filter.save()
+      };
+    }
+    return result;
   },
 
   // hide elements
   showPrintPreview: function () {
     this.trigger('print-preview')
+  },
+
+  // save filters
+  saveFilters: function() {
+    this.trigger('save-filters')
   }
 })

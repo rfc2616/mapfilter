@@ -66,6 +66,13 @@
                 "bing": "Bing Satellite",
                 "bush_mountains": "Map Layer"
             }
+        },
+        "save_filter_view": {
+          "prompt_name": "Name Your Filter",
+          "prompt_target": "Save Filter To",
+          "target_community_lands": "Community Lands",
+          "save": "Save",
+          "cancel": "Cancel"
         }
     },
     "message": {

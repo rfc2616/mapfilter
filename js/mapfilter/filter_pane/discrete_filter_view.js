@@ -28,6 +28,7 @@ module.exports = require('backbone').View.extend({
     // The template a partial are coded into the html
     this.template = tpl
     this.checkboxTemplate = checkboxTpl
+    this.initialValue = options.initialValue
 
     // `v` is the row in the dataset
     // `p` is `{}` for the first execution (passed from reduceInitial).
@@ -62,7 +63,8 @@ module.exports = require('backbone').View.extend({
     this.groupAll = this.dimension.groupAll().reduce(reduceAdd, reduceRemove, reduceInitial)
 
     // When the collection first loads or models change, re-render the filter
-    this.listenTo(this.collection, 'firstfetch change', this.render)
+    this.listenTo(this.collection, 'change', this.render)
+    this.listenTo(this.collection, 'firstfetch', this.load)
 
     this.render()
   },
@@ -91,6 +93,32 @@ module.exports = require('backbone').View.extend({
     }))
 
     return this
+  },
+
+  load: function() {
+    this.render();
+
+    if (this.initialValue) {
+      var data = this.initialValue
+      this.$('input').prop('checked', false)
+      for (var i = 0; i < data.length; i++) {
+        this.$('input[value="' + data[i] + '"]').prop('checked', true)
+      }
+
+      this.updateFilter();
+
+      this.initialValue = null;
+    }
+  },
+
+  save: function() {
+    var selected = []
+
+    this.$('input:checked').each(function() {
+      selected.push($(this).attr('value'))
+    });
+
+    return selected;
   },
 
   // Select all items in this filter

@@ -20,12 +20,17 @@ module.exports = require('backbone').Model.extend({
 
   // Should return a [lat, lon] array for the point
   coordinates: function () {
-    if (!this.attributes.geometry) return
+    if (this.attributes.geometry) {
+      var lat = this.attributes.geometry.coordinates[1]
+      var lon = this.attributes.geometry.coordinates[0]
 
-    var lat = this.attributes.geometry.coordinates[1]
-    var lon = this.attributes.geometry.coordinates[0]
+      return [lat, lon]
+    } else if (this.attributes.properties.group_location && this.attributes.properties.group_location.lat) {
+      var lat = this.attributes.properties.group_location.lat
+      var lon = this.attributes.properties.group_location.lon
 
-    return [lat, lon]
+      return [lat, lon]
+    }
   },
 
   getFormatedCoords: function (digits) {
@@ -94,11 +99,11 @@ module.exports = require('backbone').Model.extend({
   getImgUrl: function () {
     var photos = this.get('photos')
     if(photos && !(photos=='not_recorded')){
-      return photos['picture'];
+      return window.config.getImageUrl(photos['picture']);
     } else {
       var picture = this.get('picture');
       if(picture && !(picture=='not_recorded')){
-        return picture;
+        return window.config.getImageUrl(picture);
       } else {
         return undefined;
       }

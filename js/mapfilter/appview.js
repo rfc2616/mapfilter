@@ -16,6 +16,7 @@ var MapPane = require('./map_pane/map_pane.js')
 var PrintPane = require('./print_pane/print_pane.js')
 var FilterPane = require('./filter_pane/filter_pane.js')
 var InfoPane = require('./info_pane/info_pane.js')
+var SaveFilterPane = require('./filter_pane/save_filter_pane.js')
 
 module.exports = Backbone.View.extend({
   events: {
@@ -34,6 +35,7 @@ module.exports = Backbone.View.extend({
 
     this.mapPane = new MapPane({
       id: 'map',
+      config: options.config,
       center: options.mapCenter,
       zoom: options.mapZoom,
       tileUrl: options.tileUrl,
@@ -45,6 +47,7 @@ module.exports = Backbone.View.extend({
 
     this.printPane = new PrintPane({
       id: 'print-pane',
+      config: options.config,
       center: options.mapCenter,
       zoom: options.mapZoom,
       tileUrl: options.tileUrl,
@@ -55,23 +58,32 @@ module.exports = Backbone.View.extend({
 
     this.filterPane = new FilterPane({
       id: 'filter-pane',
+      config: options.config,
       collection: this.collection,
       filters: options.filters
     })
 
+    this.saveFilterPane = new SaveFilterPane({
+      id: 'save-filter-pane',
+      config: options.config
+    })
+
     this.infoPane = new InfoPane({
-      id: 'info-pane'
+      id: 'info-pane',
+      config: options.config
     })
 
     this.listenTo(this.filterPane.graphPane, 'opened', this.openGraphPane)
     this.listenTo(this.filterPane.graphPane, 'closed', this.closeGraphPane)
 
     this.listenTo(this.filterPane, 'print-preview', this.showPrintView)
+    this.listenTo(this.filterPane, 'save-filters', this.saveFilters)
     this.listenTo(this.printPane, 'cancel', this.removePrintView)
 
     this.$el.append(this.mapPane.el)
     this.$el.append(this.filterPane.render().el)
     this.$el.append(this.infoPane.$el.hide())
+    this.$el.append(this.saveFilterPane.$el.hide())
 
     // When the Leaflet Map is first initialized, it is not attached to the DOM
     // and does not have a width. We need to reset the size here now it is attached.
@@ -101,5 +113,9 @@ module.exports = Backbone.View.extend({
     this.infoPane.$el.removeClass('hide')
 
     this.printPane.$el.detach()
+  },
+
+  saveFilters: function() {
+    this.saveFilterPane.show({model: this.filterPane.save()});
   }
 })
