@@ -29,7 +29,7 @@ module.exports = require('backbone').View.extend({
 
   // Populates the infopane contents with the data from the selected point
   render: function () {
-    this.$el.html(this.template(this.model))
+    this.$el.html(this.template({targets: config.getSaveFilterTargets(), model: this.model}))
     return this
   },
 
@@ -50,8 +50,11 @@ module.exports = require('backbone').View.extend({
 
   submit: function() {
     var name = this.$('#filter-name').val();
+    var target = this.$('#filter-target').val();
+    var path = this.$('#target-' + target).data('path');
     if (!(name == null || name == '' || name == undefined)) {
       this.hide();
+      this.community_filters.url = path;
       this.community_filters.create({name: name, value: this.model}, {wait: true});
     }
   }

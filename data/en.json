@@ -65,6 +65,12 @@
                 "bing": "Bing Satellite",
                 "bush_mountains": "Bush & Mountains"
             }
+        },
+        "save_filter_view": {
+          "prompt_name": "Name Your Filter",
+          "prompt_target": "Save Filter To",
+          "save": "Save",
+          "cancel": "Cancel"
         }
     },
     "message": {

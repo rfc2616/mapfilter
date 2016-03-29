@@ -6,8 +6,15 @@ module.exports = require('backbone').Model.extend({
 
   defaults: {
     canSaveFilters: false,
+    saveFilterTargets: [
+      { name: 'Community Lands', value: 'communitylands', path: '/filters' }
+    ],
     imageUrlRoot: '/monitoring-files',
     dataUrl: '/json/Monitoring.json'
+  },
+
+  getSaveFilterTargets: function() {
+    return this.get('saveFilterTargets');
   },
 
   getFilterValue: function(field) {
