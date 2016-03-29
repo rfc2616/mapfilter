@@ -14,10 +14,10 @@
       <span><strong><%= t('ui.save_filter_view.prompt_target') %>: </strong></span>
       <br/>
       <select style="width:150px;" name="target" id="filter-target">
-        <option id="target-communitylands" data-path="/filters" value="communitylands"><%= t('ui.save_filter_view.target_community_lands') %></option>
         <% targets.forEach(function(target) { %>
           <option id="target-<%= target.value %>" data-path="<%= target.path %>" value="<%= target.value %>"><%= target.name %></option>
         <% }); %>
+        <option id="target-communitylands" data-path="/filters" value="communitylands"><%= t('ui.save_filter_view.target_community_lands') %></option>
       </select>
       <br/><br/>
       <button type="button" class="btn btn-primary" id="submit-save-filter"><%= t('ui.save_filter_view.save') %></button>
