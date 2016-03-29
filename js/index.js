@@ -59,7 +59,11 @@ var render_app = function(config) {
 }
 
 var Config = require('./mapfilter/config.js');
-new Config().fetch({
+Config = new Config();
+var filter = window.QueryString.filter;
+if (filter)
+  Config.url = Config.url + (Config.url.indexOf('?') == -1 ? "?" : "&") + "filter=" + filter;
+Config.fetch({
   success: function(model, resp, opts) {
     render_app(model);
   },
