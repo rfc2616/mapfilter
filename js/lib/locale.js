@@ -18,6 +18,8 @@ var QueryString = function () {
 
 window.locale = { _current: 'en' };
 
+window.QueryString = QueryString;
+
 locale.current = function(_) {
     if (!arguments.length) return locale._current;
     if (locale[_] !== undefined) locale._current = _;
