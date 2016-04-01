@@ -12,11 +12,13 @@
 
 var MarkerView = require('./marker_view.js')
 var _ = require('lodash')
+var TileLayers = require('../tile_layers.js')
 
 module.exports = require('backbone').View.extend({
   initialize: function (options) {
     // Initialize the [Leaflet](http://leafletjs.com/) map attaching to this view's element
-    this.map = L.map(this.el, {
+    console.log('Initializing the map pane')
+    var map = this.map = L.map(this.el, {
       center: options.center,
       zoom: options.zoom,
       scrollWheelZoom: options.scrollWheelZoom || true
@@ -58,14 +60,28 @@ module.exports = require('backbone').View.extend({
     //     styleID: '123'
     // })
 
-    // Add the background tile layer to the map
-    this.wapichanaLayer = L.tileLayer(options.tileUrl)
+    var baseMaps = {}
+    baseMaps[t('ui.map_pane.layers.bing')] = this.bingLayer;
 
-    var baseMaps = {};
-    baseMaps[t("ui.map_pane.layers.bing")] = this.bingLayer;
-    baseMaps[t("ui.map_pane.layers.bush_mountains")] = this.wapichanaLayer;
+    var tileLayers = new TileLayers()
 
-    L.control.layers(baseMaps).addTo(this.map)
+    tileLayers.fetch({
+      success: function (model, resp, opts) {
+        console.log('Successfully fetched tile layers:')
+        console.log(tileLayers)
+        tileLayers.each(function (tileLayer) {
+          console.log('+ adding a tile layer to the map:')
+          console.log(tileLayer)
+          var baseLayer = L.tileLayer('/monitoring-files/Maps/Tiles/' + tileLayer.attributes.name + '{z}/{x}/{y}.png')
+          baseMaps[tileLayer.attributes.name] = baseLayer
+        })
+        L.control.layers(baseMaps).addTo(map)
+      },
+      error: function (model, resp, opts) {
+        console.log('Could not fetch more tile layers. Limited to Bing')
+        L.control.layers(baseMaps).addTo(map)
+      }
+    })
 
     // Object to hold a reference to any markers added to the map
     this.markersById = {}

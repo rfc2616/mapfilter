@@ -49,10 +49,6 @@ var render_app = function(config) {
       expanded: true
     }],
 
-    // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
-    tileUrl: '/monitoring-files/Maps/Tiles/{z}/{x}/{y}.png',
-    // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
-
     // API key for Bing Maps use
     bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
   })
