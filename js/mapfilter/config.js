@@ -8,7 +8,10 @@ module.exports = require('backbone').Model.extend({
     canSaveFilters: false,
     saveFilterTargets: [],
     imageUrlRoot: '/monitoring-files',
-    dataUrl: '/json/Monitoring.json'
+    dataUrl: '/json/Monitoring.json',
+    mapZoom: 13,
+    mapCenterLat: -3.917096328676119,
+    mapCenterLong: -77.78382001878626
   },
 
   getSaveFilterTargets: function() {
@@ -28,6 +31,14 @@ module.exports = require('backbone').Model.extend({
   getImageUrl: function(path) {
     if (path)
       return this.get('imageUrlRoot') + (path.startsWith('/') ? path : ("/" + path));
+  },
+
+  getMapCenter: function() {
+    var lat = this.get('mapCenterLat'), lng = this.get('mapCenterLong');
+    if (lat && lng)
+      return [lat, lng];
+    else
+      return [this.defaults.mapCenterLat, this.defaults.mapCenterLong];
   }
 
 })
