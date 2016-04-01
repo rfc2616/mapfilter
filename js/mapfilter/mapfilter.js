@@ -20,10 +20,10 @@ module.exports = function (options) {
     filters: options.filters,
 
     // Initial map center point (TODO: set this & zoom based on data bounds)
-    mapCenter: [-3.917096328676119, -77.78382001878626],
+    mapCenter: options.config.getMapCenter(),
 
     // Initial map zoom
-    mapZoom: 13,
+    mapZoom: options.config.get('mapZoom'),
 
     tileUrl: options.tileUrl,
 
