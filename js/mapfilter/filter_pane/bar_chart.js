@@ -7,7 +7,7 @@ module.exports = function () {
   var margin = {top: 10, right: 10, bottom: 20, left: 10},
     x,
     y = d3.scale.linear().range([110, 0]),
-    axis = d3.svg.axis().orient('bottom'),
+    axis = d3.svg.axis().orient('bottom').tickFormat(window.locale.d3().timeFormat("%B")),
     brush = d3.svg.brush(),
     brushDirty,
     dimension,
