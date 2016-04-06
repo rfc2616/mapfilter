@@ -142,7 +142,7 @@ module.exports = require('backbone').Model.extend({
           key == 'end' ||
           key == 'meta'
         )){
-          out = out + "<tr><th>"+this._toSentenceCase(key)+":</th><td>"+props[key]+"</td></tr>"
+          out = out + "<tr><th>"+t('ui.info_pane.'+key, { default: this._toSentenceCase(key) })+":</th><td>"+props[key]+"</td></tr>"
         }
       }
     }

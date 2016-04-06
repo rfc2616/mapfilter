@@ -76,13 +76,13 @@ window.t = function(s, o, loc) {
             return missing;
         }
 
+        if (o && 'default' in o) {
+            return o['default'];
+        }
+
         if (loc !== 'en') {
             missing();
             return t(s, o, 'en');
-        }
-
-        if (o && 'default' in o) {
-            return o['default'];
         }
 
         if (/\s/.exec(s) || !/\./.exec(s)) {
