@@ -30,8 +30,8 @@ module.exports = require('backbone').View.extend({
   initialize: function (options) {
 
     var overrideStyle = function (k) {
-      if (k.indexOf('__') > -1) {
-        return k.match(/__(.*)$/)[1].replace('_','#')
+      if (k.indexOf('^') > -1) {
+        return k.match(/\^(.*)$/)[1].replace('_','#')
       } else {
         return false
       }

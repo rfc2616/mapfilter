@@ -77,16 +77,16 @@ module.exports = require('backbone').View.extend({
     var checkboxes = []
 
     var overrideStyle = function (k) {
-      if (k.indexOf('__') > -1) {
-        return 'background-color: ' + k.match(/__(.*)$/)[1].replace('_','#')
+      if (k.indexOf('^') > -1) {
+        return 'background-color: ' + k.match(/\^(.*)$/)[1].replace('^','#')
       } else {
         return ''
       }
     }
 
     var stripStyle = function (k) {
-      if (k.indexOf('__') > -1) {
-        return k.match(/^(.*)__/)[1]
+      if (k.indexOf('^') > -1) {
+        return k.match(/^(.*)\^/)[1]
       } else {
         return k
       }

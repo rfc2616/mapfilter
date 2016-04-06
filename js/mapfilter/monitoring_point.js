@@ -156,8 +156,8 @@ module.exports = require('backbone').Model.extend({
     var value = this.get(attr)
     var output = []
     var stripStyle = function (k) {
-      if (k.indexOf('__') > -1) {
-        return k.match(/^(.*)__/)[1]
+      if (k.indexOf('^') > -1) {
+        return k.match(/^(.*)\^/)[1]
       } else {
         return k
       }

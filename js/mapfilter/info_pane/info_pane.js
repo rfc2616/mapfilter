@@ -26,8 +26,8 @@ module.exports = require('backbone').View.extend({
     this.$('.map-icon').html($(this.model.icon).html())
     this.$('.map-icon').addClass($(this.model.icon).attr('class'))
     var overrideStyle = function (k) {
-      if (k.indexOf('__') > -1) {
-        return k.match(/__(.*)$/)[1].replace('_', '#')
+      if (k.indexOf('^') > -1) {
+        return k.match(/\^(.*)$/)[1].replace('^', '#')
       } else {
         return false
       }
