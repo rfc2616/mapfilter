@@ -28,7 +28,7 @@ module.exports = require('backbone').View.extend({
     // Initialize a graph pane to hold charts for continuous filters
     this.graphPane = new GraphPane({
       collection: this.collection,
-      initialValue: options.config.getFilterValue('today')
+      initialValue: this.parseDateValue(options.config.getFilterValue('today'))
     })
 
     this.config = options.config
@@ -80,7 +80,7 @@ module.exports = require('backbone').View.extend({
         field: options.field,
         expanded: options.expanded || false,
         graphPane: this.graphPane,
-        initialValue: this.config.getFilterValue(options.field)
+        initialValue: this.parseDateValue(this.config.getFilterValue(options.field))
       })
     } else {
       filterView = new DiscreteFilterView({
@@ -105,6 +105,27 @@ module.exports = require('backbone').View.extend({
       };
     }
     return result;
+  },
+
+  parseDateValue: function(data) {
+    if (data === undefined || data == null)
+      return null;
+
+    const format = window.locale.d3().timeFormat('%d %b %Y');
+    const locales = Object.getOwnPropertyNames(window.locale_d3);
+    var startDateObj = null, endDateObj = null;
+
+    for (var index in locales) {
+      if (startDateObj == null) {
+        var locale = locales[index];
+        startDateObj = window.locale_d3[locale].timeFormat('%d %b %Y').parse(data.startDate);
+        if (startDateObj)
+          endDateObj = window.locale_d3[locale].timeFormat('%d %b %Y').parse(data.endDate);
+      }
+    }
+
+    var startDate = format(startDateObj), endDate = format(endDateObj);
+    return { startDate: startDate, endDate: endDate }
   },
 
   // hide elements

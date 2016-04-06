@@ -33,7 +33,7 @@ L.BingLayer = L.TileLayer.extend({
         var z = this._getZoomForUrl();
         var subdomains = this.options.subdomains,
             s = this.options.subdomains[Math.abs((p.x + p.y) % subdomains.length)];
-        return '/bing-proxy/' + encodeURIComponent(this._url.replace('{subdomain}', s)
+        return window.config.getBingProxyPath(this._url.replace('{subdomain}', s)
                 .replace('{quadkey}', this.tile2quad(p.x, p.y, z))
                 .replace('http:', document.location.protocol)
                 .replace('{culture}', this.options.culture));
@@ -53,7 +53,7 @@ L.BingLayer = L.TileLayer.extend({
             }
             _this.initMetadata();
         };
-        var url = '/bing-metadata/'+encodeURIComponent("http://dev.virtualearth.net/REST/v1/Imagery/Metadata/" + this.options.type + "?include=ImageryProviders&jsonp=" + cbid + "&key=" + this._key);
+        var url = window.config.getBingMetadataPath("http://dev.virtualearth.net/REST/v1/Imagery/Metadata/" + this.options.type + "?include=ImageryProviders&jsonp=" + cbid + "&key=" + this._key);
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = url;

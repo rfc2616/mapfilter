@@ -3,7 +3,6 @@
 // globally self-installing deps
 require('./lib/locale.js')
 require('./lib/leaflet-0.7.7.js')
-require('./lib/bing_layer.js')
 require('./lib/d3.v4.js')
 require('./lib/d3-dates.v4.js')
 
@@ -21,6 +20,7 @@ var hostname = window.location.hostname
 
 var render_app = function(config) {
   window.config = config
+  require('./lib/bing_layer.js')
   window.app = mapFilter({
     // target for monitoring data
     url: config.get('dataUrl'),

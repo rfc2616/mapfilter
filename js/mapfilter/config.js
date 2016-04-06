@@ -14,6 +14,20 @@ module.exports = require('backbone').Model.extend({
     mapCenterLong: -77.78382001878626
   },
 
+  getBingProxyPath: function(url) {
+    if (this.get('bingProxy')) {
+      return this.get('bingProxy') + '/' + encodeURIComponent(url);
+    } else
+      return url;
+  },
+
+  getBingMetadataPath: function(url) {
+    if (this.get('bingMetadata')) {
+      return this.get('bingMetadata') + '/' + encodeURIComponent(url);
+    } else
+      return url;
+  },
+
   getSaveFilterTargets: function() {
     return this.get('saveFilterTargets');
   },
