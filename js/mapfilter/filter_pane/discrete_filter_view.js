@@ -34,16 +34,22 @@ module.exports = require('backbone').View.extend({
     // `p` is `{}` for the first execution (passed from reduceInitial).
     // For every subsequent execution it is the value returned from reduceAdd of the prev row
     function reduceAdd (p, v) {
-      v.get(field).split(' ').forEach(function (val) {
-        p[val] = (p[val] || 0) + 1 // increment counts
-      })
+      var f = v.get(field)
+      if (f) {
+        v.get(field).split(' ').forEach(function (val) {
+          p[val] = (p[val] || 0) + 1 // increment counts
+        })
+      }
       return p
     }
 
     function reduceRemove (p, v) {
-      v.get(field).split(' ').forEach(function (val) {
-        p[val] -= 1
-      })
+      var f = v.get(field)
+      if (f) {
+        v.get(field).split(' ').forEach(function (val) {
+          p[val] -= 1
+        })
+      }
       return p
     }
 
