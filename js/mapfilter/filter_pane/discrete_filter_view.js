@@ -76,12 +76,29 @@ module.exports = require('backbone').View.extend({
 
     var checkboxes = []
 
+    var overrideStyle = function (k) {
+      if (k.indexOf('__') > -1) {
+        return 'background-color: ' + k.match(/__(.*)$/)[1].replace('_','#')
+      } else {
+        return ''
+      }
+    }
+
+    var stripStyle = function (k) {
+      if (k.indexOf('__') > -1) {
+        return k.match(/^(.*)__/)[1]
+      } else {
+        return k
+      }
+    }
+
     // Create an array of checkboxes for each unique value of the filter field
     _.forEach(this.groupAll.value(), function (v, k) {
       checkboxes.push(this.checkboxTemplate({
         key: k,
-        text: t(this.field + '.' + k),
+        text: t(this.field + '.' + stripStyle(k)),
         labelClass: (this.field === 'happening') ? 'label' : '',
+        labelStyle: overrideStyle(k),
         className: 'checkbox ' + k
       }))
     }, this)

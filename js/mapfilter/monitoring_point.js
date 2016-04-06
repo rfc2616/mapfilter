@@ -155,12 +155,19 @@ module.exports = require('backbone').Model.extend({
   _getOther: function (attr, attr_other) {
     var value = this.get(attr)
     var output = []
+    var stripStyle = function (k) {
+      if (k.indexOf('__') > -1) {
+        return k.match(/^(.*)__/)[1]
+      } else {
+        return k
+      }
+    }
 
     value.split(' ').forEach(function (v, i) {
       if (v === 'other') {
         output[i] = this._toSentenceCase(this.get(attr_other))
       } else {
-        output[i] = t(attr + '.' + v)
+        output[i] = t(attr + '.' + stripStyle(v))
       }
     }, this)
 

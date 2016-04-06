@@ -25,6 +25,17 @@ module.exports = require('backbone').View.extend({
     this.$el.html(this.template(this.model))
     this.$('.map-icon').html($(this.model.icon).html())
     this.$('.map-icon').addClass($(this.model.icon).attr('class'))
+    var overrideStyle = function (k) {
+      if (k.indexOf('__') > -1) {
+        return k.match(/__(.*)$/)[1].replace('_', '#')
+      } else {
+        return false
+      }
+    }
+    var os = overrideStyle(this.model.get('happening'))
+    if (os) {
+      this.$('.map-icon').css('fill', os)
+    }
     return this
   },
 

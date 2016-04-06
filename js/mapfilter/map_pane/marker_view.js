@@ -28,6 +28,15 @@ module.exports = require('backbone').View.extend({
   }),
 
   initialize: function (options) {
+
+    var overrideStyle = function (k) {
+      if (k.indexOf('__') > -1) {
+        return k.match(/__(.*)$/)[1].replace('_','#')
+      } else {
+        return false
+      }
+    }
+
     this._interactive = options.interactive
     var loc = this.model.coordinates()
 
@@ -52,6 +61,11 @@ module.exports = require('backbone').View.extend({
     // Add className from the model's "happening" field
     // **TODO** remove this dependency and color markers from array of colors
     this.$el.addClass(this.model.get('happening'))
+
+    var os = overrideStyle(this.model.get('happening'))
+    if (os) {
+      this.$el.css('fill', os)
+    }
 
     // Reference the marker's current z-index (we change the z-index later
     // when the markers are filtered, so unfiltered markers appear on top)
