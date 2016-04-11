@@ -10,7 +10,8 @@
         "grazing": "Le Pâturage Illégal",
         "tourism": "La Violation Touristique ",
         "artefacts": "Le Vol d' Artéfacts",
-        "other": "Autres"
+        "other": "Autres",
+        "not_recorded": "Pas enregistré"
     },
     "impacts": {
         "cultural": "La perte d' héritage culturel",
@@ -27,7 +28,8 @@
         "deforestation": "La Déforestation",
         "social": "Les dommages sociaux ou les abus",
         "fpic": "Violation CLIP",
-        "other": "Autres"
+        "other": "Autres",
+        "not_recorded": "Pas enregistré"
     },
     "filters": {
         "happening": "Activités",
