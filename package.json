@@ -90,7 +90,8 @@
         "test": "standard",
         "open": "npm run build:dev && npm run dev | opnr | garnish",
         "deploy": "buildbranch gh-pages dist",
-        "build:dev": "copyfiles index.html dist && npm run build:css",
+        "build:dev": "copyfiles index.html dist && npm run build:css && npm run build:version",
+        "build:version": "git log -n 1 --format='{\n\t\"version\": \"%h\"\n}' > data/version.json",
         "predeploy": "npm run build:web && copyfiles CNAME dist"
     },
     "webkit": {

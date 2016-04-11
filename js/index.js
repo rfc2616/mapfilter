@@ -14,6 +14,12 @@ window.locale.fr = require('../data/fr')
 window.locale.es = require('../data/es')
 window.locale.init();
 
+try {
+  window.appVersion = require('../data/version')
+} catch (e) {
+  window.appVersion = { version: 'Beta' }
+}
+
 var mapFilter = require('./mapfilter/mapfilter.js')
 
 var hostname = window.location.hostname

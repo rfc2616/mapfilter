@@ -60,6 +60,13 @@ module.exports = require('backbone').View.extend({
         '</div>' +
         '</div>');
     }
+
+    if (options.config.get('showVersion')) {
+      this.$filters.append('<br/><hr/><div style="margin: 0px auto; text-align:center">' + 
+                           '<div class="small label label-build-version" id="appVersion">Build Version ' + 
+                           window.appVersion.version + '</div></div>');
+    }
+
   },
 
   // Add a filter on a field to the filter pane.

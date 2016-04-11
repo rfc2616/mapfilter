@@ -14,6 +14,16 @@ body {
     transition: -webkit-transform 600ms;
 }
 
+#appVersion {
+  padding: 5px;
+  font-weight: normal;
+}
+
+.label-build-version {
+  color: #333;
+  background-color: #eee;
+}
+
 #app.show-date-filter {
     -webkit-transform: translateY(150px);
     transform: translateY(150px);
