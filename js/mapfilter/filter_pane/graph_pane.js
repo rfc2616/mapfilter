@@ -48,11 +48,11 @@ module.exports = require('backbone').View.extend({
 
       var date = this.format.parse(data.startDate)
       var yesterday = new Date(date.getTime() - 24 * 60 * 60 * 100)
-
-      this.updateDomain()
+      this.initialValue = null
       //FIXME: This should not remove checkboxes, but it does...
       //this.barChart.filter([yesterday, this.format.parse(data.endDate)])
     }
+    this.updateDomain()
   },
 
   updateDomain: function () {
