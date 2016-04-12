@@ -85,7 +85,31 @@ module.exports = require('backbone').View.extend({
       }
     })
 
-    var tracksLayer = L.geoJson()
+    var popup_for = function (map_props) {
+      var html = ''
+      if (map_props.name) {
+        html += '<div>' + map_props.name + '</div>'
+      }
+      if (map_props.time) {
+        html += '<div>' + map_props.time + '</div>'
+      }
+      if (map_props.sym) {
+        html += '<div>' + map_props.sym + '</div>'
+      }
+      if (map_props.voice_memo) {
+        html += '<div><a target="_blank" href="/sounds/' + map_props.voice_memo + '">' + map_props.voice_memo + '</div>'
+      }
+      return html
+    }
+    var onEachFeature = function (feature, layer) {
+      var map_props = feature.properties
+      var popupContent = popup_for(map_props)
+      layer.bindPopup(popupContent)
+    }
+    var tracksLayer = L.geoJson(null, {
+      'onEachFeature': onEachFeature
+    })
+
     baseMaps[t('ui.map_pane.layers.tracks')] = tracksLayer
     L.Icon.Default.imagePath = '/mapfilter'
 
