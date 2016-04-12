@@ -49,6 +49,14 @@ module.exports = require('backbone').Model.extend({
     return this._getOther('happening', 'happening_other')
   },
 
+  hasImpacts: function() {
+    if (this.attributes.properties['impacts'] ||
+        this.attributes.properties['impacts_other'])
+      return true
+    else
+      return false
+  },
+
   getImpacts: function () {
     return this._getOther('impacts', 'impacts_other')
   },

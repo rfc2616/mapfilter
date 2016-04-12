@@ -6,6 +6,7 @@ module.exports = require('backbone').Model.extend({
 
   defaults: {
     canSaveFilters: false,
+    showVersion: true,
     saveFilterTargets: [],
     imageUrlRoot: '/monitoring-files',
     dataUrl: '/json/Monitoring.json',

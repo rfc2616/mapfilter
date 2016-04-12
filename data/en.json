@@ -10,7 +10,8 @@
         "grazing": "Illegal Grazing",
         "tourism": "Tourism Violation",
         "artefacts": "Stealing Artefacts",
-        "other": "Other"
+        "other": "Other",
+        "not_recorded": "Not Recorded"
     },
     "impacts": {
         "cultural": "Loss of cultural heritage",
@@ -27,7 +28,8 @@
         "deforestation": "Deforestation",
         "social": "Social harm or abuse",
         "fpic": "FPIC violation",
-        "other": "Other"
+        "other": "Other",
+        "not_recorded": "Not Recorded"
     },
     "filters": {
         "happening": "Activities",

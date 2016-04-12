@@ -22,10 +22,12 @@
   <th><%= t("ui.info_pane.coordinates") %>:</th>
   <td><%= getFormatedCoords() %></td>
 </tr>
+<% if (hasImpacts()) { %>
 <tr>
   <th><%= t("ui.info_pane.impacts") %>:</th>
   <td><%= t(getImpacts()) %></td>
 </tr>
+<% } %>
 <% if (attributes.other_info) { %>
 <tr>
   <th><%= t("ui.info_pane.notes") %>:</th>

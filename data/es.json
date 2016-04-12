@@ -10,7 +10,8 @@
         "grazing": "El Pastoreo Ilegal",
         "tourism": "Violación por turismo",
         "artefacts": "Robo de artefactos",
-        "other": "Otro"
+        "other": "Otro",
+        "not_recorded": "No documentados"
     },
     "impacts": {
         "cultural": "La pérdida de patrimonio cultural",
@@ -27,7 +28,8 @@
         "deforestation": "Deforestación",
         "social": "Daño social o abuso",
         "fpic": "Violación del CPLI",
-        "other": "Otro"
+        "other": "Otro",
+        "not_recorded": "No documentados"
     },
     "filters": {
         "happening": "Actividades",

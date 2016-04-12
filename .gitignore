@@ -1,6 +1,9 @@
 # build dir
 dist
 
+# build version -- no need to store
+data/version.json
+
 # deps
 node_modules
 
