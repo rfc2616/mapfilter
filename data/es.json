@@ -67,7 +67,8 @@
         "map_pane": {
             "layers": {
                 "bing": "Imagen satelital Bing",
-                "bush_mountains": "Nivel de mapa"
+                "bush_mountains": "Nivel de mapa",
+                "tracks": "Caminos y puntos"
             }
         },
         "save_filter_view": {

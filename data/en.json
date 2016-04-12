@@ -67,7 +67,8 @@
         "map_pane": {
             "layers": {
                 "bing": "Bing Satellite",
-                "bush_mountains": "Map Layer"
+                "bush_mountains": "Map Layer",
+                "tracks": "Tracks and Points"
             }
         },
         "save_filter_view": {
