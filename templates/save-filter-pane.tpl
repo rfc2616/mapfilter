@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <button type="button" class="close pull-right" aria-hidden="true">&times;</button>
-      <h3 class="panel-title">Save Filter</h3>
+      <h3 class="panel-title"><%= t('ui.save_filter_view.title') %></h3>
     </div>
     <div class="clearfix">&nbsp;</div>
     <div class="panel-body">
