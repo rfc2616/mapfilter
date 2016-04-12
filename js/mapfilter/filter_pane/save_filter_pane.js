@@ -22,9 +22,6 @@ module.exports = require('backbone').View.extend({
     this.config = options.config
     this.template = tpl
     this.community_filters = options.savedFilters || new SavedFilters();
-    this.community_filters.on('add', function(m, c, o) {
-      alert('Configuration saved.');
-    });
   },
 
   // Populates the infopane contents with the data from the selected point
@@ -54,8 +51,31 @@ module.exports = require('backbone').View.extend({
     var path = this.$('#target-' + target).data('path');
     if (!(name == null || name == '' || name == undefined)) {
       this.hide();
+      var request_options = {
+        wait: true,
+        success: function(m, r, o) {
+          if (r && r.error)
+            alert(t('error.' + (r.code || 'unknown')));
+          else
+            alert(t('message.filter_saved'))
+        },
+        error: function(m, err, o) {
+          var error_key = 'unknown'
+          if (err && err.responseJSON) {
+            var r = err.responseJSON
+            if (r.code)
+              error_key = r.code
+          }
+          alert(t('error.' + error_key));
+        }
+      }
+      var model_data = {
+        name: name,
+        value: this.model,
+        zoom: this.config.get('mapZoom')
+      } //TODO: lat/long/uri/anything else
       this.community_filters.url = path;
-      this.community_filters.create({name: name, value: this.model}, {wait: true});
+      this.community_filters.create(model_data, request_options);
     }
   }
 })

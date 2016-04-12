@@ -42,7 +42,8 @@
             "select_dates": "Select Dates",
             "dates": "Dates",
             "print_report": "Print Report",
-            "publish_web": "Publish to Web"
+            "publish_web": "Publish to Web",
+            "save_filters": "Save Filters"
         },
         "print_view": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
@@ -70,6 +71,7 @@
             }
         },
         "save_filter_view": {
+          "title": "Save Filters",
           "prompt_name": "Name Your Filter",
           "prompt_target": "Save Filter To",
           "target_community_lands": "Community Lands",
@@ -78,10 +80,15 @@
         }
     },
     "message": {
-        "nodata": "<em class=\"blank\">Not Reported</em>"
+        "nodata": "<em class=\"blank\">Not Reported</em>",
+        "filter_saved": "Configuration saved"
     },
     "error": {
         "filter_missing": "Filter missing.",
-        "missing_github_token": "Please enter Github token"
+        "missing_github_token": "Please enter Github token",
+        "client_error": "An error occurred processing your request",
+        "server_error": "An unknown error occurred on the server",
+        "unknown": "An unknown error occurred",
+        "comm_failure": "Failed to communicate with server"
     }
 }
