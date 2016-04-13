@@ -38,7 +38,9 @@ module.exports = require('backbone').View.extend({
     this.mapPane.map.invalidateSize()
     // Change map bounds if any records are currently filtered
     if (this.collection.dimensionByCid.groupAll().value()) {
-      this.mapPane.map.fitBounds(this.collection.filteredBounds())
+      this.mapPane.map.fitBounds(this.collection.filteredBounds(), {
+        maxZoom: 15
+      })
     }
 
     this.$filterPanesEl.html('')
