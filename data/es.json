@@ -73,8 +73,8 @@
         },
         "save_filter_view": {
             "title": "Guardar Filtros",
-            "prompt_name": "Name Your Filter",
-            "prompt_target": "Save Filter To",
+            "prompt_name": "Identificar tu filtro",
+            "prompt_target": "Guardar filtro a",
             "target_community_lands": "Community Lands",
             "save": "Guardar",
             "cancel": "Anular"
@@ -87,9 +87,9 @@
     "error": {
         "filter_missing": "Sin filtro.",
         "missing_github_token": "Favor de ingresar el código de Github",
-        "client_error": "An error occurred processing your request",
-        "server_error": "An unknown error occurred on the server",
-        "unknown": "An unknown error occurred",
-        "comm_failure": "Failed to communicate with server"
+        "client_error": "Un error ocurrió mientras procesaba su solicitud",
+        "server_error": "Error desconocida ocurrió en el servidor",
+        "unknown": "Error desconocida",
+        "comm_failure": "No pudo comunicar con el servidor"
     }
 }
