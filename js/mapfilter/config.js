@@ -54,6 +54,45 @@ module.exports = require('backbone').Model.extend({
       return [lat, lng];
     else
       return [this.defaults.mapCenterLat, this.defaults.mapCenterLong];
+  },
+
+  /*
+   * Should be an object with the following properties:
+   *
+   * tiles: {
+   *   url: '/tileLayers', // the url to get the list of layers
+   *   tilesPath: '/monitoring-files/Maps/Tiles' // the base path for tiles
+   * }
+   */
+  getTilesInfo: function() {
+    return this.get('tiles')
+  },
+
+  hasTiles: function() {
+    if (this.get('tiles'))
+      return true;
+    else
+      return false;
+  },
+
+  /*
+   * Should be an object with the following properties:
+   *
+   * tracks: {
+   *   url: '/tracks', // the url to load tracks from
+   *   soundsPath: '/sounds', // the base path for sounds
+   *   iconPath: '/mapfilter' // the base path for icons
+   * }
+   */
+  getTracksInfo: function() {
+    return this.get('tracks')
+  },
+
+  isTracksEnabled: function() {
+    if (this.get('tracks'))
+      return true;
+    else
+      return false;
   }
 
 })
