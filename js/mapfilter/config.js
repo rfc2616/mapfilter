@@ -54,6 +54,27 @@ module.exports = require('backbone').Model.extend({
       return [lat, lng];
     else
       return [this.defaults.mapCenterLat, this.defaults.mapCenterLong];
+  },
+
+  /*
+   * Should be an object with the following properties:
+   *
+   * tracks: {
+   *   url: '/tracks', // the url to load tracks from
+   *   soundsPath: '/sounds', // the base path for sounds
+   *   tilesPath: '/monitoring-files/Maps/Tiles', // the base path for tiles
+   *   iconPath: '/mapfilter' // the base path for icons
+   * }
+   */
+  getTracksInfo: function() {
+    return this.get('tracks')
+  },
+
+  isTracksEnabled: function() {
+    if (this.get('tracks'))
+      return true;
+    else
+      return false;
   }
 
 })

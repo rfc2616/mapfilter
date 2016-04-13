@@ -25,6 +25,7 @@ module.exports = require('backbone').View.extend({
 
     this.mapPane = new MapPane({
       el: this.$('#map-print'),
+      config: options.config,
       center: options.center,
       zoom: options.zoom,
       tileUrl: options.tileUrl,
