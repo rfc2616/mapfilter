@@ -18,6 +18,10 @@ var $ = require('jquery')
 
 module.exports = require('backbone').View.extend({
   initialize: function (options) {
+    this.appView = options.appView
+
+    this.config = options.config
+
     // Initialize the [Leaflet](http://leafletjs.com/) map attaching to this view's element
     console.log('Initializing the map pane')
     var map = this.map = L.map(this.el, {
@@ -25,12 +29,10 @@ module.exports = require('backbone').View.extend({
       zoom: options.zoom,
       scrollWheelZoom: options.scrollWheelZoom || true
     })
+    if (options.onBaseLayerChange)
+      map.on('baselayerchange', options.onBaseLayerChange);
 
     this._interactive = options.interactive
-
-    this.appView = options.appView
-
-    this.config = options.config
 
     L.bingLayer.initialize = function (key, options) {
       L.Util.setOptions(this, options)
@@ -64,10 +66,13 @@ module.exports = require('backbone').View.extend({
     //     styleID: '123'
     // })
 
-    var baseMaps = {}
+    var baseMaps = this.baseMaps = {}
     baseMaps[t('ui.map_pane.layers.bing')] = this.bingLayer
 
+    this.currentBaseLayer = t('ui.map_pane.layers.bing')
+
     if (this.config.hasTiles()) {
+      var self = this
       var tilesConfig = this.config.getTilesInfo();
       var tileLayers = new TileLayers()
       tileLayers.url = tilesConfig.url
@@ -75,13 +80,17 @@ module.exports = require('backbone').View.extend({
         success: function (model, resp, opts) {
           console.log('Successfully fetched tile layers:')
           console.log(tileLayers)
+          var newLayers = []
           tileLayers.each(function (tileLayer) {
             console.log('+ adding a tile layer to the map:')
             console.log(tileLayer)
             var baseLayer = L.tileLayer(tilesConfig.tilesPath + '/' + tileLayer.attributes.name + '/{z}/{x}/{y}.png')
             baseMaps[tileLayer.attributes.name] = baseLayer
+            newLayers.push(tileLayer.attributes.name)
           })
           L.control.layers(baseMaps).addTo(map)
+          for (var i = 0; i < newLayers.length; i++)
+            self.checkDefaultBaseLayer(newLayers[i], self);
         },
         error: function (model, resp, opts) {
           console.log('Could not fetch more tile layers. Limited to Bing')
@@ -124,6 +133,8 @@ module.exports = require('backbone').View.extend({
 
       baseMaps[t('ui.map_pane.layers.tracks')] = tracksLayer
       L.Icon.Default.imagePath = tracksConfig.iconPath
+
+      this.checkDefaultBaseLayer(t('ui.map_pane.layers.tracks'));
 
       $.ajax({
         dataType: 'json',
@@ -200,5 +211,22 @@ module.exports = require('backbone').View.extend({
       this.markersById[d.key].show(d.value, i)
       i += d.value
     }, this)
+  },
+
+  checkDefaultBaseLayer: function(name, that) {
+    var self = that || this
+    if (self.config) {
+      var defaultBaseLayer = self.config.get('baseLayer')
+      if (defaultBaseLayer && self.currentBaseLayer != defaultBaseLayer && name == defaultBaseLayer) {
+        var oldLayer = self.baseMaps[self.currentBaseLayer]
+        var newLayer = self.baseMaps[name]
+        if (oldLayer && newLayer) {
+          self.map.removeLayer(oldLayer);
+          self.map.addLayer(newLayer);
+          self.currentBaseLayer = name;
+        }
+      }
+    }
   }
+
 })

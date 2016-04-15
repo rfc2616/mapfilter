@@ -74,6 +74,8 @@ module.exports = require('backbone').View.extend({
         value: this.model,
         zoom: this.config.get('mapZoom')
       } //TODO: lat/long/uri/anything else
+      if (window.currentBaseLayer)
+        model_data['baseLayer'] = window.currentBaseLayer;
       this.community_filters.url = path;
       this.community_filters.create(model_data, request_options);
     }
