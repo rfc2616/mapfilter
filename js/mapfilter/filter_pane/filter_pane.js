@@ -115,24 +115,30 @@ module.exports = require('backbone').View.extend({
   },
 
   parseDateValue: function(data) {
-    if (data === undefined || data == null)
-      return null;
+    if (data) {
+      const format = window.locale.d3().timeFormat('%d %b %Y');
+      var locales = Object.getOwnPropertyNames(window.locale_d3);
+      var defaultLocale = window.locale.current();
+      locales.splice(locales.indexOf(defaultLocale), 1)
+      locales.unshift(defaultLocale)
 
-    const format = window.locale.d3().timeFormat('%d %b %Y');
-    const locales = Object.getOwnPropertyNames(window.locale_d3);
-    var startDateObj = null, endDateObj = null;
+      var startDateObj = null, endDateObj = null;
 
-    for (var index in locales) {
-      if (startDateObj == null) {
-        var locale = locales[index];
-        startDateObj = window.locale_d3[locale].timeFormat('%d %b %Y').parse(data.startDate);
-        if (startDateObj)
-          endDateObj = window.locale_d3[locale].timeFormat('%d %b %Y').parse(data.endDate);
+      for (var index in locales) {
+        if (startDateObj == null || endDateObj == null) {
+          var locale = locales[index];
+          startDateObj = window.locale_d3[locale].timeFormat('%d %b %Y').parse(data.startDate);
+          if (startDateObj)
+            endDateObj = window.locale_d3[locale].timeFormat('%d %b %Y').parse(data.endDate);
+        }
       }
-    }
-
-    var startDate = format(startDateObj), endDate = format(endDateObj);
-    return { startDate: startDate, endDate: endDate }
+      if (startDateObj && endDateObj) {
+        var startDate = format(startDateObj), endDate = format(endDateObj);
+        return { startDate: startDate, endDate: endDate }
+      } else
+        return null
+    } else
+      return null;
   },
 
   // hide elements
