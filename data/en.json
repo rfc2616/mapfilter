@@ -43,7 +43,7 @@
             "dates": "Dates",
             "print_report": "Print Report",
             "publish_web": "Publish to Web",
-            "save_filters": "Save Filters"
+            "save_filters": "Save Map"
         },
         "print_view": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
@@ -72,9 +72,9 @@
             }
         },
         "save_filter_view": {
-          "title": "Save Filters",
-          "prompt_name": "Name Your Filter",
-          "prompt_target": "Save Filter To",
+          "title": "Save Map",
+          "prompt_name": "Name Your Map",
+          "prompt_target": "Save Map To",
           "target_community_lands": "Community Lands",
           "save": "Save",
           "cancel": "Cancel"
