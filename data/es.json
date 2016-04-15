@@ -43,7 +43,7 @@
             "dates": "Fechas",
             "print_report": "Imprimir informe",
             "publish_web": "Enviar a la pagina web",
-            "save_filters": "Guardar Filtros"
+            "save_filters": "Guardar Mapa"
         },
         "print_view": {
             "print_view_description": "Usted puede imprimir solamente el mapa, o puede imprimir solamente la lista de información asociado con cada punto, mediante la selección de las opciones a continuación. Puede arrastrar y ampliar el mapa para cambiar el área que deseas imprimir.",
@@ -72,9 +72,9 @@
             }
         },
         "save_filter_view": {
-            "title": "Guardar Filtros",
-            "prompt_name": "Name Your Filter",
-            "prompt_target": "Save Filter To",
+            "title": "Guardar Mapa",
+            "prompt_name": "Nombrar su mapa",
+            "prompt_target": "Guardar su mapa a",
             "target_community_lands": "Community Lands",
             "save": "Guardar",
             "cancel": "Anular"
@@ -87,9 +87,9 @@
     "error": {
         "filter_missing": "Sin filtro.",
         "missing_github_token": "Favor de ingresar el código de Github",
-        "client_error": "An error occurred processing your request",
-        "server_error": "An unknown error occurred on the server",
-        "unknown": "An unknown error occurred",
-        "comm_failure": "Failed to communicate with server"
+        "client_error": "Un error ocurrió mientras procesaba su solicitud",
+        "server_error": "Error desconocida ocurrió en el servidor",
+        "unknown": "Error desconocida",
+        "comm_failure": "No pudo comunicar con el servidor"
     }
 }

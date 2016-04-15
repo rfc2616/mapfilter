@@ -30,6 +30,8 @@ module.exports = require('backbone').View.extend({
 
     this.appView = options.appView
 
+    this.config = options.config
+
     L.bingLayer.initialize = function (key, options) {
       L.Util.setOptions(this, options)
 
@@ -65,68 +67,79 @@ module.exports = require('backbone').View.extend({
     var baseMaps = {}
     baseMaps[t('ui.map_pane.layers.bing')] = this.bingLayer
 
-    var tileLayers = new TileLayers()
-
-    tileLayers.fetch({
-      success: function (model, resp, opts) {
-        console.log('Successfully fetched tile layers:')
-        console.log(tileLayers)
-        tileLayers.each(function (tileLayer) {
-          console.log('+ adding a tile layer to the map:')
-          console.log(tileLayer)
-          var baseLayer = L.tileLayer('/monitoring-files/Maps/Tiles/' + tileLayer.attributes.name + '/{z}/{x}/{y}.png')
-          baseMaps[tileLayer.attributes.name] = baseLayer
-        })
-        L.control.layers(baseMaps).addTo(map)
-      },
-      error: function (model, resp, opts) {
-        console.log('Could not fetch more tile layers. Limited to Bing')
-        L.control.layers(baseMaps).addTo(map)
-      }
-    })
-
-    var popup_for = function (map_props) {
-      var html = ''
-      if (map_props.name) {
-        html += '<div>' + map_props.name + '</div>'
-      }
-      if (map_props.time) {
-        html += '<div>' + map_props.time + '</div>'
-      }
-      if (map_props.sym) {
-        html += '<div>' + map_props.sym + '</div>'
-      }
-      if (map_props.voice_memo) {
-        html += '<div><a target="_blank" href="/sounds/' + map_props.voice_memo + '">' + map_props.voice_memo + '</div>'
-      }
-      return html
+    if (this.config.hasTiles()) {
+      var tilesConfig = this.config.getTilesInfo();
+      var tileLayers = new TileLayers()
+      tileLayers.url = tilesConfig.url
+      tileLayers.fetch({
+        success: function (model, resp, opts) {
+          console.log('Successfully fetched tile layers:')
+          console.log(tileLayers)
+          tileLayers.each(function (tileLayer) {
+            console.log('+ adding a tile layer to the map:')
+            console.log(tileLayer)
+            var baseLayer = L.tileLayer(tilesConfig.tilesPath + '/' + tileLayer.attributes.name + '/{z}/{x}/{y}.png')
+            baseMaps[tileLayer.attributes.name] = baseLayer
+          })
+          L.control.layers(baseMaps).addTo(map)
+        },
+        error: function (model, resp, opts) {
+          console.log('Could not fetch more tile layers. Limited to Bing')
+          L.control.layers(baseMaps).addTo(map)
+        }
+      })
+    } else {
+      L.control.layers(baseMaps).addTo(map)
     }
-    var onEachFeature = function (feature, layer) {
-      var map_props = feature.properties
-      var popupContent = popup_for(map_props)
-      layer.bindPopup(popupContent)
-    }
-    var tracksLayer = L.geoJson(null, {
-      'onEachFeature': onEachFeature
-    })
 
-    baseMaps[t('ui.map_pane.layers.tracks')] = tracksLayer
-    L.Icon.Default.imagePath = '/mapfilter'
+    if (this.config.isTracksEnabled()) {
+      var tracksConfig = this.config.getTracksInfo();
 
-    $.ajax({
-      dataType: 'json',
-      url: '/tracks',
-      success: function (data) {
-        $(data.features).each(function (key, data) {
-          tracksLayer.addData(data)
-          console.log('Added track feature')
-          console.log(data)
-        })
+      var popup_for = function (map_props) {
+        var html = ''
+        if (map_props.name) {
+          html += '<div>' + map_props.name + '</div>'
+        }
+        if (map_props.time) {
+          html += '<div>' + map_props.time + '</div>'
+        }
+        if (map_props.sym) {
+          html += '<div>' + map_props.sym + '</div>'
+        }
+        if (map_props.voice_memo) {
+          html += '<div><a target="_blank" href="' + 
+            tracksConfig.soundsPath + '/' + map_props.voice_memo + '">' + 
+            map_props.voice_memo + '</div>'
+        }
+        return html
       }
-    }).error(function (err) {
-      console.log('Error loading tracks json')
-      console.log(err)
-    })
+      var onEachFeature = function (feature, layer) {
+        var map_props = feature.properties
+        var popupContent = popup_for(map_props)
+        layer.bindPopup(popupContent)
+      }
+      var tracksLayer = L.geoJson(null, {
+        'onEachFeature': onEachFeature
+      })
+
+      baseMaps[t('ui.map_pane.layers.tracks')] = tracksLayer
+      L.Icon.Default.imagePath = tracksConfig.iconPath
+
+      $.ajax({
+        dataType: 'json',
+        url: tracksConfig.url,
+        success: function (data) {
+          $(data.features).each(function (key, data) {
+            tracksLayer.addData(data)
+            console.log('Added track feature')
+            console.log(data)
+          })
+        }
+      }).error(function (err) {
+        console.log('Error loading tracks json')
+        console.log(err)
+      })
+    }
 
     // Object to hold a reference to any markers added to the map
     this.markersById = {}
