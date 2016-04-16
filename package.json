@@ -79,6 +79,7 @@
         "d3": "3"
     },
     "scripts": {
+        "build:local": "npm run build:dev && browserify js/index.js -t [ jstify --engine lodash ] > dist/bundle.js",
         "build:web": "npm run build:dev && npm run build:js",
         "prebuild:web": "rimraf dist && mkdirp dist",
         "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
