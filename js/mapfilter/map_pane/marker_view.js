@@ -85,7 +85,7 @@ module.exports = require('backbone').View.extend({
 
   // When the mouse is over the marker, show the info pane
   onMouseOver: function (e) {
-    if (!this._interactive) return
+    if (!this._interactive || this.isFiltered()) return
     e.stopPropagation()
     this.$el.addClass('hover')
     this.appView.infoPane.show({
@@ -95,7 +95,7 @@ module.exports = require('backbone').View.extend({
 
   // Hide the infopane when the mouse leaves the marker
   onMouseOut: function () {
-    if (!this._interactive) return
+    if (!this._interactive || this.isFiltered()) return
     this.$el.removeClass('hover')
     this.appView.infoPane.hide()
   },
@@ -103,7 +103,7 @@ module.exports = require('backbone').View.extend({
   // When you click the marker, make the infoPane "stick" open
   // until you click on another marker
   onClick: function (e) {
-    if (!this._interactive) return
+    if (!this._interactive || this.isFiltered()) return
     e.stopPropagation()
     this.$el.toggleClass('clicked')
     this.appView.infoPane.toggle({
@@ -132,5 +132,10 @@ module.exports = require('backbone').View.extend({
       this.marker.setZIndexOffset(-99999)
       this.$markerText.html('')
     }
+  },
+
+  isFiltered: function() {
+    return this.$el.hasClass('filtered')
   }
+
 })

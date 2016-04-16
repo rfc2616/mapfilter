@@ -43,7 +43,7 @@ module.exports = Backbone.View.extend({
       collection: this.collection,
       appView: this,
       interactive: true,
-      onBaseLayerChange: this.setCurrentBaseLayer
+      onBaseLayerChange: this.setCurrentBaseLayer.bind(this)
     })
 
     this.printPane = new PrintPane({
@@ -122,5 +122,7 @@ module.exports = Backbone.View.extend({
 
   setCurrentBaseLayer: function(evt) {
     window.currentBaseLayer = evt.name
+    this.printPane.mapPane.setBaseLayer(evt.name)
   }
+
 })
