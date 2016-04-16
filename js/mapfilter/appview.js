@@ -42,7 +42,8 @@ module.exports = Backbone.View.extend({
       bingKey: options.bingKey,
       collection: this.collection,
       appView: this,
-      interactive: true
+      interactive: true,
+      onBaseLayerChange: this.setCurrentBaseLayer
     })
 
     this.printPane = new PrintPane({
@@ -117,5 +118,9 @@ module.exports = Backbone.View.extend({
 
   saveFilters: function() {
     this.saveFilterPane.show({model: this.filterPane.save()});
+  },
+
+  setCurrentBaseLayer: function(evt) {
+    window.currentBaseLayer = evt.name
   }
 })
