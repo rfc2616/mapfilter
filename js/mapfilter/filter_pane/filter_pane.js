@@ -115,7 +115,7 @@ module.exports = require('backbone').View.extend({
   },
 
   parseDateValue: function(data) {
-    if (data) {
+    if (data && data.startDate && data.endDate) {
       const format = window.locale.d3().timeFormat('%d %b %Y');
       var locales = Object.getOwnPropertyNames(window.locale_d3);
       var defaultLocale = window.locale.current();
