@@ -218,14 +218,19 @@ module.exports = require('backbone').View.extend({
     if (self.config) {
       var defaultBaseLayer = self.config.get('baseLayer')
       if (defaultBaseLayer && self.currentBaseLayer != defaultBaseLayer && name == defaultBaseLayer) {
-        var oldLayer = self.baseMaps[self.currentBaseLayer]
-        var newLayer = self.baseMaps[name]
-        if (oldLayer && newLayer) {
-          self.map.removeLayer(oldLayer);
-          self.map.addLayer(newLayer);
-          self.currentBaseLayer = name;
-        }
+        self.setBaseLayer(name)
       }
+    }
+  },
+
+  setBaseLayer: function(name, that) {
+    var self = that || this
+    var oldLayer = self.baseMaps[self.currentBaseLayer]
+    var newLayer = self.baseMaps[name]
+    if (oldLayer && newLayer) {
+      self.map.removeLayer(oldLayer);
+      self.map.addLayer(newLayer);
+      self.currentBaseLayer = name;
     }
   }
 
