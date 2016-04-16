@@ -29,8 +29,9 @@ module.exports = require('backbone').View.extend({
       zoom: options.zoom,
       scrollWheelZoom: options.scrollWheelZoom || true
     })
-    if (options.onBaseLayerChange)
-      map.on('baselayerchange', options.onBaseLayerChange);
+    if (options.onBaseLayerChange) {
+      map.on('baselayerchange', options.onBaseLayerChange)
+    }
 
     this._interactive = options.interactive
 
@@ -67,13 +68,15 @@ module.exports = require('backbone').View.extend({
     // })
 
     var baseMaps = this.baseMaps = {}
+    var overlayMaps = this.overlayMaps = {}
+
     baseMaps[t('ui.map_pane.layers.bing')] = this.bingLayer
 
     this.currentBaseLayer = t('ui.map_pane.layers.bing')
 
     if (this.config.hasTiles()) {
       var self = this
-      var tilesConfig = this.config.getTilesInfo();
+      var tilesConfig = this.config.getTilesInfo()
       var tileLayers = new TileLayers()
       tileLayers.url = tilesConfig.url
       tileLayers.fetch({
@@ -88,9 +91,10 @@ module.exports = require('backbone').View.extend({
             baseMaps[tileLayer.attributes.name] = baseLayer
             newLayers.push(tileLayer.attributes.name)
           })
-          L.control.layers(baseMaps).addTo(map)
-          for (var i = 0; i < newLayers.length; i++)
-            self.checkDefaultBaseLayer(newLayers[i], self);
+          L.control.layers(baseMaps, overlayMaps).addTo(map)
+          for (var i = 0; i < newLayers.length; i++) {
+            self.checkDefaultBaseLayer(newLayers[i], self)
+          }
         },
         error: function (model, resp, opts) {
           console.log('Could not fetch more tile layers. Limited to Bing')
@@ -102,11 +106,12 @@ module.exports = require('backbone').View.extend({
     }
 
     if (this.config.isTracksEnabled()) {
-      var tracksConfig = this.config.getTracksInfo();
+      var tracksConfig = this.config.getTracksInfo()
 
       var popup_for = function (map_props) {
         var html = ''
         if (map_props.name) {
+          console.log('binding popup for ' + map_props.name)
           html += '<div>' + map_props.name + '</div>'
         }
         if (map_props.time) {
@@ -116,8 +121,8 @@ module.exports = require('backbone').View.extend({
           html += '<div>' + map_props.sym + '</div>'
         }
         if (map_props.voice_memo) {
-          html += '<div><a target="_blank" href="' + 
-            tracksConfig.soundsPath + '/' + map_props.voice_memo + '">' + 
+          html += '<div><a target="_blank" href="' +
+            tracksConfig.soundsPath + '/' + map_props.voice_memo + '">' +
             map_props.voice_memo + '</div>'
         }
         return html
@@ -126,25 +131,34 @@ module.exports = require('backbone').View.extend({
         var map_props = feature.properties
         var popupContent = popup_for(map_props)
         layer.bindPopup(popupContent)
+        if (layer instanceof L.Polyline) {
+            console.log("This is a polyline layer")
+            layer.setStyle({
+                'color': '#ff0033',
+                'weight': 5,
+                'opacity': 1
+            })
+        }
+      }
+      var polyStyle = {
+        stroke: true,
+        color: '#000033',
+        weight: 5,
+        opacity: 0.5
       }
       var tracksLayer = L.geoJson(null, {
-        'onEachFeature': onEachFeature
+        onEachFeature: onEachFeature,
+        style: polyStyle
       })
 
-      baseMaps[t('ui.map_pane.layers.tracks')] = tracksLayer
+      overlayMaps[t('ui.map_pane.layers.tracks')] = tracksLayer
       L.Icon.Default.imagePath = tracksConfig.iconPath
-
-      this.checkDefaultBaseLayer(t('ui.map_pane.layers.tracks'));
 
       $.ajax({
         dataType: 'json',
         url: tracksConfig.url,
         success: function (data) {
-          $(data.features).each(function (key, data) {
-            tracksLayer.addData(data)
-            console.log('Added track feature')
-            console.log(data)
-          })
+          tracksLayer.addData(data)
         }
       }).error(function (err) {
         console.log('Error loading tracks json')
