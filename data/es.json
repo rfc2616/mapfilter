@@ -82,7 +82,7 @@
     },
     "message": {
         "nodata": "<em class=\"blank\">No Reportado</em>",
-        "filter_saved": "Configuration saved"
+        "filter_saved": "Configuración guardada"
     },
     "error": {
         "filter_missing": "Sin filtro.",
