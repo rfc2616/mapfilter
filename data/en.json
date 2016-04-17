@@ -37,8 +37,9 @@
     },
     "ui": {
         "filter_view": {
+            "show_all": "Show All",
             "select_one": "only",
-            "select_all": "Show All",
+            "select_all": "Select All",
             "select_dates": "Select Dates",
             "dates": "Dates",
             "print_report": "Print Report",
