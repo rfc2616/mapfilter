@@ -72,7 +72,9 @@ module.exports = require('backbone').View.extend({
       var model_data = {
         name: name,
         value: this.model,
-        zoom: this.config.get('mapZoom')
+        zoom: this.config.get('mapZoom'),
+        latitude: this.get('mapCenterLat'),
+        longitude: this.get('mapCenterLong')
       } //TODO: lat/long/uri/anything else
       if (window.currentBaseLayer)
         model_data['baseLayer'] = window.currentBaseLayer;
