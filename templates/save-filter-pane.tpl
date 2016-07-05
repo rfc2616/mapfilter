@@ -20,6 +20,26 @@
         <option id="target-communitylands" data-path="/filters" value="communitylands"><%= t('ui.save_filter_view.target_community_lands') %></option>
       </select>
       <br/><br/>
+      <span><strong><%= t('ui.save_filter_view.prompt_coordinates_zoom') %>:</strong></span><br/>
+      <label for="filter-cz-source-compute">
+        <input id="filter-cz-source-compute" type="radio" name="filter-coordinate-zoom-source" value="compute" checked />
+        <span><%= t('ui.save_filter_view.option_compute') %></span>
+      </label>
+      <span>&nbsp;</span>
+      <label for="filter-cz-source-config">
+        <input id="filter-cz-source-config" type="radio" name="filter-coordinate-zoom-source" value="config" />
+        <span><%= t('ui.save_filter_view.option_config') %></span>
+      </label>
+      <br/>
+      <dl>
+        <dt><%= t('ui.save_filter_view.prompt_latitude') %>:</dt>
+        <dd id="filter-latitude"><%= map.getCenter().lat %></dd>
+        <dt><%= t('ui.save_filter_view.prompt_longitude') %>:</dt>
+        <dd id="filter-longitude"><%= map.getCenter().lng %></dd>
+        <dt><%= t('ui.save_filter_view.prompt_zoom') %>:</dt>
+        <dd id="filter-zoom"><%= map.getZoom() %></dd>
+      </dl>
+      <br/><br/>
       <button type="button" class="btn btn-primary" id="submit-save-filter"><%= t('ui.save_filter_view.save') %></button>
       <span>&nbsp;</span>
       <button type="button" class="btn btn-default" id="cancel-save-filter"><%= t('ui.save_filter_view.cancel') %></button>

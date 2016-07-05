@@ -75,6 +75,12 @@
           "title": "Save Map",
           "prompt_name": "Name Your Map",
           "prompt_target": "Save Map To",
+          "prompt_coordinates_zoom": "Coordinates and Zoom",
+          "prompt_latitude": "Latitude",
+          "prompt_longitude": "Longitude",
+          "prompt_zoom": "Zoom",
+          "option_compute": "Calculate from Map",
+          "option_config": "Use Defaults",
           "target_community_lands": "Community Lands",
           "save": "Save",
           "cancel": "Cancel"
