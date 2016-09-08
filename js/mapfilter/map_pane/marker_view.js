@@ -38,16 +38,11 @@ module.exports = require('backbone').View.extend({
     }
 
     this._interactive = options.interactive
-    var loc = this.model.coordinates()
-
-    // Sometimes models (monitoring reports) do not have coordinates
-    if (!loc) loc = [0, 0]
-    if (!loc[0] || !loc[1]) loc = [0, 0]
 
     this.appView = options.appView
 
     // Create a new marker with the default icon and add to the map
-    this.marker = L.marker(loc, {
+    this.marker = L.marker(this.getLocation(), {
       icon: this.icon
     }).addTo(options.map)
 
@@ -70,6 +65,20 @@ module.exports = require('backbone').View.extend({
     // Reference the marker's current z-index (we change the z-index later
     // when the markers are filtered, so unfiltered markers appear on top)
     this._lastZIndex = this.marker.options.zIndexOffset
+  },
+
+  getLocation: function() {
+    var loc = this.model.coordinates();
+
+    // Sometimes models (monitoring reports) do not have coordinates
+    if (!loc) loc = [0, 0]
+    if (!loc[0] || !loc[1]) loc = [0, 0]
+
+    return loc;
+  },
+
+  getIdentifier: function() {
+    return this.model.get('meta')['instanceId'];
   },
 
   // TODO: remove/update this
