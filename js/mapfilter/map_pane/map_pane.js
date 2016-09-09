@@ -246,6 +246,10 @@ module.exports = require('backbone').View.extend({
       self.map.addLayer(newLayer);
       self.currentBaseLayer = name;
     }
+  },
+
+  getMap: function() {
+    return this.map;
   }
 
 })
