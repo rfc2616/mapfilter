@@ -77,12 +77,16 @@ module.exports = require('backbone').View.extend({
           alert(t('error.' + error_key));
         }
       }
+
       var model_data = {
         name: name,
         value: this.model,
         zoom: parseInt(this.$("#filter-zoom").html()),
         latitude: parseFloat(this.$("#filter-latitude").html()),
-        longitude: parseFloat(this.$("#filter-longitude").html())
+        longitude: parseFloat(this.$("#filter-longitude").html()),
+        locations: this.mapPane.getPoints(function(value) {
+          return value.getIdentifier();
+        })
       } //TODO: lat/long/uri/anything else
       if (window.currentBaseLayer)
         model_data['baseLayer'] = window.currentBaseLayer;
