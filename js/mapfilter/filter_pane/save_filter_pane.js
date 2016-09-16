@@ -64,7 +64,22 @@ module.exports = require('backbone').View.extend({
         success: function(m, r, o) {
           if (r && r.error)
             alert(t('error.' + (r.code || 'unknown')));
-          else
+          else if (r && r.entity) {
+            var message = '';
+            var status = r.entity;
+            if (status.update)
+              message += t('message.filter_updated')
+            else
+              message += t('message.filter_saved')
+
+            if (status.data_version) {
+              var fmt = window.locale.d3().timeFormat("%a %b %e %X %Y")
+              message += ' (' + t('message.data_last_saved') + ' ' + fmt(new Date(status.data_version)) + ').';
+            } else
+              message += ' (' + t('message.data_not_saved') + ').';
+
+            alert(message);
+          } else
             alert(t('message.filter_saved'))
         },
         error: function(m, err, o) {
