@@ -89,7 +89,10 @@
     },
     "message": {
         "nodata": "<em class=\"blank\">No Reportado</em>",
-        "filter_saved": "Configuración guardada"
+        "filter_saved": "Configuración guardada",
+        "filter_updated": "Configuración actualizada",
+        "data_last_saved": "Datos guardados en",
+        "data_not_saved": "Datos del monitoreo aun no han sido subido a Community Lands"
     },
     "error": {
         "filter_missing": "Sin filtro.",
