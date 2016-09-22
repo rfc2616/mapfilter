@@ -63,7 +63,8 @@ module.exports = require('backbone').View.extend({
 
     if (options.config.get('showVersion')) {
       this.$filters.append('<br/><hr/><div style="margin: 0px auto; text-align:center">' + 
-                           '<div class="small label label-build-version" id="appVersion">Build Version ' + 
+                           '<div class="small label label-build-version" id="appVersion">' + 
+                           t('ui.filter_view.version') + ' ' +
                            window.appVersion.version + '</div></div>');
     }
 
