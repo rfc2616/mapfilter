@@ -44,7 +44,8 @@
             "dates": "Dates",
             "print_report": "Print Report",
             "publish_web": "Publish to Web",
-            "save_filters": "Save Map"
+            "save_filters": "Save Map",
+            "version": "Version"
         },
         "print_view": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
