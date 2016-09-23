@@ -66,7 +66,8 @@ module.exports = Backbone.View.extend({
 
     this.saveFilterPane = new SaveFilterPane({
       id: 'save-filter-pane',
-      config: options.config
+      config: options.config,
+      mapPane: this.mapPane
     })
 
     this.infoPane = new InfoPane({

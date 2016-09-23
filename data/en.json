@@ -37,13 +37,15 @@
     },
     "ui": {
         "filter_view": {
+            "show_all": "Show All",
             "select_one": "only",
-            "select_all": "Show All",
+            "select_all": "Select All",
             "select_dates": "Select Dates",
             "dates": "Dates",
             "print_report": "Print Report",
             "publish_web": "Publish to Web",
-            "save_filters": "Save Map"
+            "save_filters": "Save Map",
+            "version": "Version"
         },
         "print_view": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
@@ -75,6 +77,12 @@
           "title": "Save Map",
           "prompt_name": "Name Your Map",
           "prompt_target": "Save Map To",
+          "prompt_coordinates_zoom": "Coordinates and Zoom",
+          "prompt_latitude": "Latitude",
+          "prompt_longitude": "Longitude",
+          "prompt_zoom": "Zoom",
+          "option_compute": "Calculate from Map",
+          "option_config": "Use Defaults",
           "target_community_lands": "Community Lands",
           "save": "Save",
           "cancel": "Cancel"
@@ -82,7 +90,10 @@
     },
     "message": {
         "nodata": "<em class=\"blank\">Not Reported</em>",
-        "filter_saved": "Configuration saved"
+        "filter_saved": "Configuration saved",
+        "filter_updated": "Configuration updated",
+        "data_last_saved": "Data last saved on",
+        "data_not_saved": "No monitoring data has been uploaded to Community Lands yet"
     },
     "error": {
         "filter_missing": "Filter missing.",

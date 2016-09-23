@@ -37,13 +37,15 @@
     },
     "ui": {
         "filter_view": {
+            "show_all": "Mostrar Todo",
             "select_one": "uno",
-            "select_all": "Mostrar Todo",
+            "select_all": "Seleccionar Todos",
             "select_dates": "Seleccionar Fechas",
             "dates": "Fechas",
             "print_report": "Imprimir informe",
             "publish_web": "Enviar a la pagina web",
-            "save_filters": "Guardar Mapa"
+            "save_filters": "Guardar Mapa",
+            "version": "Versión"
         },
         "print_view": {
             "print_view_description": "Usted puede imprimir solamente el mapa, o puede imprimir solamente la lista de información asociado con cada punto, mediante la selección de las opciones a continuación. Puede arrastrar y ampliar el mapa para cambiar el área que deseas imprimir.",
@@ -75,6 +77,12 @@
             "title": "Guardar Mapa",
             "prompt_name": "Nombrar su mapa",
             "prompt_target": "Guardar su mapa a",
+            "prompt_coordinates_zoom": "Coordenadas y Zoom",
+            "prompt_latitude": "Latitud",
+            "prompt_longitude": "Longitud",
+            "prompt_zoom": "Zoom",
+            "option_compute": "Calcular del Mapa",
+            "option_config": "Usar ajustes predeterminados",
             "target_community_lands": "Community Lands",
             "save": "Guardar",
             "cancel": "Anular"
@@ -82,7 +90,10 @@
     },
     "message": {
         "nodata": "<em class=\"blank\">No Reportado</em>",
-        "filter_saved": "Configuración guardada"
+        "filter_saved": "Configuración guardada",
+        "filter_updated": "Configuración actualizada",
+        "data_last_saved": "Datos guardados en",
+        "data_not_saved": "Datos del monitoreo aun no han sido subido a Community Lands"
     },
     "error": {
         "filter_missing": "Sin filtro.",

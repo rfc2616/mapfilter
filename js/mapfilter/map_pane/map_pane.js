@@ -246,6 +246,24 @@ module.exports = require('backbone').View.extend({
       self.map.addLayer(newLayer);
       self.currentBaseLayer = name;
     }
+  },
+
+  getMap: function() {
+    return this.map;
+  },
+
+  getPoints: function(cb) {
+    var markers = [];
+    var source = this.markersById;
+    this.collection.groupByCid.all().forEach(function (d) {
+      if (d.value == 1 && source[d.key]) {
+        if (cb)
+          markers.push(cb(source[d.key]));
+        else
+          markers.push(source[d.key].getLocation());
+      }
+    });
+    return markers;
   }
 
 })
