@@ -105,5 +105,9 @@
     "license": "MIT",
     "single-instance": true,
     "snapshot": "",
-    "node-main": ""
+    "node-main": "",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/community-lands/mapfilter.git"
+    }
 }
