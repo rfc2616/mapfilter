@@ -37,23 +37,23 @@
     },
     "ui": {
         "filter_view": {
-            "show_all": "Show All",
+            "show_all": "Montre Tout",
             "select_one": "Seulement",
             "select_all": "Montrez Tout",
             "select_dates": "Choisissez Les Dates",
             "dates": "Dates",
-            "print_report": "Print Report",
-            "publish_web": "Publish to Web",
-            "save_filters": "Save Map",
+            "print_report": "Imprimer Le Rapport",
+            "publish_web": "Publier Sur Le Web",
+            "save_filters": "Enregistrer La Carte",
             "version": "Version"
         },
         "print_view": {
             "print_view_description": "Vous pouvez imprimer juste la carte, ou la liste d'information pour chaque point, en sélectionnant les options au-dessous. Vous pouvez  glisser et zoomer la carte au-dessous afin de choisir la région pour imprimer.",
             "show_large_map": "Montrez la première page avec la carte générale",
             "show_info_list": "Montrez données pour chaque point",
-            "cancel": "Cancel",
-            "print": "Print",
-            "monitoring_report": "Monitoring Report"
+            "cancel": "Annuler",
+            "print": "Imprimer",
+            "monitoring_report": "Rapport De Suivi"
         },
         "info_pane": {
             "not_recorded": "Pas enregistré",
@@ -69,38 +69,38 @@
         "map_pane": {
             "layers": {
                 "bing": "Bing Satellite",
-                "bush_mountains": "Map Layer",
-                "tracks": "Tracks and Points"
+                "bush_mountains": "Couche De Carte",
+                "tracks": "Pistes et Points"
             }
         },
         "save_filter_view": {
-          "title": "Save Map",
-          "prompt_name": "Name Your Map",
-          "prompt_target": "Save Map To",
-          "prompt_coordinates_zoom": "Coordinates and Zoom",
+          "title": "Enregistrer la carte",
+          "prompt_name": "Nommez votre carte",
+          "prompt_target": "Enregistrer la carte pour",
+          "prompt_coordinates_zoom": "Coordonnées et Zoom",
           "prompt_latitude": "Latitude",
           "prompt_longitude": "Longitude",
           "prompt_zoom": "Zoom",
-          "option_compute": "Calculate from Map",
-          "option_config": "Use Defaults",
-          "target_community_lands": "Community Lands",
-          "save": "Save",
-          "cancel": "Cancel"
+          "option_compute": "Calculer à partir de la carte",
+          "option_config": "Utiliser les valeurs par défaut",
+          "target_community_lands": "Terres Communautaires",
+          "save": "Sauvegarder",
+          "cancel": "Annuler"
         }
     },
     "message": {
         "nodata": "<em class=\"blank\">Pas signalé</em>",
-        "filter_saved": "Configuration saved",
-        "filter_updated": "Configuration updated",
-        "data_last_saved": "Data last saved on",
-        "data_not_saved": "No monitoring data has been uploaded to Community Lands yet"
+        "filter_saved": "Configuration enregistrée",
+        "filter_updated": "Configuration mise à jour",
+        "data_last_saved": "Données sauvegardées pour la dernière fois",
+        "data_not_saved": "Aucune donnée de surveillance n'a encore été téléchargée sur les Terres Communautaires"
     },
     "error": {
-        "filter_missing": "Filter missing.",
-        "missing_github_token": "Please enter Github token",
-        "client_error": "An error occurred processing your request",
-        "server_error": "An unknown error occurred on the server",
-        "unknown": "An unknown error occurred",
-        "comm_failure": "Failed to communicate with server"
+        "filter_missing": "Filtre manquant.",
+        "missing_github_token": "Veuillez entrer le jeton Github",
+        "client_error": "Une erreur s'est produite lors du traitement de votre demande",
+        "server_error": "Une erreur inconnue s'est produite sur le serveur",
+        "unknown": "Une erreur inconnue est survenue",
+        "comm_failure": "Échec de la communication avec le serveur"
     }
 }
