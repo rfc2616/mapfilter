@@ -87,7 +87,7 @@ module.exports = require('backbone').View.extend({
           tileLayers.each(function (tileLayer) {
             console.log('+ adding a tile layer to the map:')
             console.log(tileLayer)
-            var baseLayer = L.tileLayer(tileLayer.attributes.uri + '/{z}/{x}/{y}.jpg')
+            var baseLayer = L.tileLayer(tileLayer.attributes.uri + '/{z}/{x}/{y}.' + (tileLayer.attributes.format || 'jpg'))
             baseMaps[tileLayer.attributes.name] = baseLayer
             newLayers.push(tileLayer.attributes.name)
           })
