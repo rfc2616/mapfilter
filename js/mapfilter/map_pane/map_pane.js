@@ -69,6 +69,7 @@ module.exports = require('backbone').View.extend({
 
     var baseMaps = this.baseMaps = {}
     var overlayMaps = this.overlayMaps = {}
+    var installedLayers = this.installedLayers = []
 
     baseMaps[t('ui.map_pane.layers.bing')] = this.bingLayer
 
@@ -83,17 +84,16 @@ module.exports = require('backbone').View.extend({
         success: function (model, resp, opts) {
           console.log('Successfully fetched tile layers:')
           console.log(tileLayers)
-          var newLayers = []
           tileLayers.each(function (tileLayer) {
             console.log('+ adding a tile layer to the map:')
             console.log(tileLayer)
             var baseLayer = L.tileLayer(tileLayer.attributes.uri + '/{z}/{x}/{y}.jpg')
             baseMaps[tileLayer.attributes.name] = baseLayer
-            newLayers.push(tileLayer.attributes.name)
+            installedLayers.push(tileLayer)
           })
           L.control.layers(baseMaps, overlayMaps).addTo(map)
-          for (var i = 0; i < newLayers.length; i++) {
-            self.checkDefaultBaseLayer(newLayers[i], self)
+          for (var i = 0; i < installedLayers.length; i++) {
+            self.checkDefaultBaseLayer(installedLayers[i], self)
           }
         },
         error: function (model, resp, opts) {
@@ -227,12 +227,13 @@ module.exports = require('backbone').View.extend({
     }, this)
   },
 
-  checkDefaultBaseLayer: function(name, that) {
+  checkDefaultBaseLayer: function(tileLayer, that) {
     var self = that || this
     if (self.config) {
       var defaultBaseLayer = self.config.get('baseLayer')
-      if (defaultBaseLayer && self.currentBaseLayer != defaultBaseLayer && name == defaultBaseLayer) {
-        self.setBaseLayer(name)
+      var layerKey = tileLayer.attributes.key || tileLayer.attributes.name;
+      if (defaultBaseLayer && self.currentBaseLayer != defaultBaseLayer && layerKey == defaultBaseLayer) {
+        self.setBaseLayer(tileLayer.attributes.name)
       }
     }
   },
