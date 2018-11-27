@@ -188,7 +188,7 @@ class MapFilter extends React.Component {
      * Either a React Element (`<MyMenuItem myProp='hello' />`)
      * or a React Component (`MyMenuItem`)
      */
-    appBarMenuItems: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    appBarMenuItems: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     /**
      * A locale string that is optional, overriding the default navigator locale.
      */

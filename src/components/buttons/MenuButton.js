@@ -124,6 +124,12 @@ MenuButton.defaultProps = {
 MenuButton.propTypes = {
   features: MFPropTypes.features,
   intl: PropTypes.object.isRequired,
+  /**
+   * Menu items to render at the end of the AppBar menu.
+   * Either a React Element (`<MyMenuItem myProp='hello' />`)
+   * or a React Component (`MyMenuItem`)
+   */
+  menuItems: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
   openSettings: PropTypes.func.isRequired
 }
 
